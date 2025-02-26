@@ -40,6 +40,9 @@
         .token-logo {
             height: 40px;
             animation: fadeIn 1.5s ease-in-out;
+            /* Ensure PNG transparency is preserved */
+            background-color: transparent;
+            object-fit: contain;
         }
         
         .main-content {
@@ -75,7 +78,6 @@
             padding: 20px;
             text-align: center;
             background-color: rgba(10, 25, 47, 0.9);
-            animation: fadeIn 2s ease-in-out;
             border-top: 1px solid rgba(100, 255, 218, 0.3);
         }
         
@@ -196,7 +198,7 @@
     </div>
     
     <div class="footer">
-        <a href="https://docsend.com/view/q8gwtydjjv4ppcz3" class="footer-link">Terms</a>
+        <a href="#" class="footer-link">Terms</a>
         <a href="#" class="footer-link">What's Next</a>
     </div>
     
@@ -228,7 +230,7 @@
             
             // Add an entrance animation to elements as they come into view
             const animateOnScroll = function() {
-                const elements = document.querySelectorAll('.text-box, .footer');
+                const elements = document.querySelectorAll('.text-box');
                 
                 elements.forEach(element => {
                     const elementPosition = element.getBoundingClientRect().top;
@@ -242,7 +244,7 @@
             };
             
             // Set initial state for animations
-            document.querySelectorAll('.text-box, .footer').forEach(el => {
+            document.querySelectorAll('.text-box').forEach(el => {
                 el.style.opacity = '0';
                 el.style.transform = 'translateY(20px)';
                 el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
