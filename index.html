@@ -104,6 +104,66 @@
             width: 100%;
         }
         
+        /* Popup styles */
+        .popup-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .popup-content {
+            background-color: var(--primary-color);
+            width: 90%;
+            max-width: 600px;
+            border-radius: 10px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+            border: 1px solid var(--secondary-color);
+            overflow: hidden;
+            animation: scaleIn 0.3s ease-out;
+        }
+        
+        .popup-header {
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid rgba(100, 255, 218, 0.2);
+        }
+        
+        .popup-header h3 {
+            color: var(--secondary-color);
+            margin: 0;
+        }
+        
+        .close-popup {
+            color: var(--text-color);
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: color 0.2s;
+        }
+        
+        .close-popup:hover {
+            color: var(--secondary-color);
+        }
+        
+        .popup-body {
+            padding: 20px;
+            max-height: 70vh;
+            overflow-y: auto;
+        }
+        
+        .popup-body p {
+            margin-bottom: 15px;
+        }
+        
         @keyframes fadeIn {
             from { opacity: 0; }
             to { opacity: 1; }
@@ -192,16 +252,30 @@
         
         <div class="text-box">
             <p><strong>OFFICIAL NOTICE:</strong> SHOPX has reached its end-of-life phase. The SHOPX team has transitioned to Aces.fun, the next evolution of web3 commerce.</p>
-<br>
-<p>Please be aware that any social accounts or communications claiming to represent SHOPX are NOT affiliated with our team. Any announcements regarding SHOPX airdrops or token claims are FAKE and potentially malicious. DO NOT connect wallets or share sensitive information with anyone claiming to represent SHOPX.</p>
-<br>
-<p>We extend our deepest gratitude to the SHOPX community for your unwavering support throughout our journey. Aces.fun will take the torch forward to keep the decentralized mission alive. Official updates will ONLY be shared through <a href="https://x.com/acesdotfun" style="color: var(--secondary-color);">https://x.com/acesdotfun</a>. Thank you for being part of this movement with us.</p>
+            <br>
+            <p>Please be aware that any social accounts or communications claiming to represent SHOPX are NOT affiliated with our team. Any announcements regarding SHOPX airdrops or token claims are FAKE and potentially malicious. DO NOT connect wallets or share sensitive information with anyone claiming to represent SHOPX.</p>
+            <br>
+            <p>We extend our deepest gratitude to the SHOPX community for your unwavering support throughout our journey. Aces.fun will take the torch forward to keep the decentralized mission alive. Official updates will ONLY be shared through <a href="https://x.com/acesdotfun" style="color: var(--secondary-color);">https://x.com/acesdotfun</a>. Thank you for being part of this movement with us.</p>
         </div>
     </div>
     
     <div class="footer">
         <a href="#" class="footer-link">Terms</a>
-        <a href="#" class="footer-link">What's Next</a>
+        <a href="#" class="footer-link" id="whats-next-link">What's Next</a>
+    </div>
+    
+    <!-- Popup for What's Next -->
+    <div class="popup-overlay" id="whats-next-popup">
+        <div class="popup-content">
+            <div class="popup-header">
+                <h3>What's Next</h3>
+                <span class="close-popup">&times;</span>
+            </div>
+            <div class="popup-body">
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum consequat justo eu nulla consectetur, quis efficitur eros commodo. Donec varius ligula vitae eleifend rutrum. In hac habitasse platea dictumst. Vivamus scelerisque enim nec metus feugiat, sit amet volutpat felis imperdiet.</p>
+                <p>Nulla facilisi. Suspendisse vel ullamcorper odio. Fusce ut arcu in arcu dapibus scelerisque. Integer eget fringilla nibh. Mauris sollicitudin, risus in facilisis malesuada, sapien libero ultricies magna, nec posuere odio leo a ex.</p>
+            </div>
+        </div>
     </div>
     
     <script>
@@ -255,6 +329,40 @@
             // Run the animation check on load and scroll
             window.addEventListener('load', animateOnScroll);
             window.addEventListener('scroll', animateOnScroll);
+            
+            // Popup functionality
+            const whatsNextLink = document.getElementById('whats-next-link');
+            const whatsNextPopup = document.getElementById('whats-next-popup');
+            const closePopupBtn = document.querySelector('.close-popup');
+            
+            // Open popup when What's Next is clicked
+            whatsNextLink.addEventListener('click', function(e) {
+                e.preventDefault();
+                whatsNextPopup.style.display = 'flex';
+                document.body.style.overflow = 'hidden'; // Prevent scrolling when popup is open
+            });
+            
+            // Close popup when X is clicked
+            closePopupBtn.addEventListener('click', function() {
+                whatsNextPopup.style.display = 'none';
+                document.body.style.overflow = 'auto'; // Restore scrolling
+            });
+            
+            // Close popup when clicking outside of content
+            whatsNextPopup.addEventListener('click', function(e) {
+                if (e.target === whatsNextPopup) {
+                    whatsNextPopup.style.display = 'none';
+                    document.body.style.overflow = 'auto';
+                }
+            });
+            
+            // Close popup when ESC key is pressed
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape' && whatsNextPopup.style.display === 'flex') {
+                    whatsNextPopup.style.display = 'none';
+                    document.body.style.overflow = 'auto';
+                }
+            });
         });
     </script>
 </body>
